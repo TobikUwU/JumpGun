@@ -35,11 +35,6 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -109,6 +104,12 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
+    }
+
+
+    public bool canAttack()
+    {
+        return horizontalMovement == 0 && Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, groundLayer);
     }
 
 }
