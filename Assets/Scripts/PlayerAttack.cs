@@ -5,16 +5,21 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private float attackCooldown;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private PlayerMovement playerMovement;
+
     private Animator anim;
-    private PlayerMovement playerMovement;
+
 
     private float cooldownTime = Mathf.Infinity;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        playerMovement = GetComponent<PlayerMovement>();
+        
     }
+
 
 
     private void Update(){
@@ -26,10 +31,14 @@ public class PlayerAttack : MonoBehaviour
     {
         if (!context.performed) return;
 
-        if (cooldownTime >= attackCooldown)
+        if (cooldownTime >= attackCooldown && playerMovement.canAttack())
         {
             cooldownTime = 0;
+
+            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+
             anim.SetTrigger("attack");
+
         } 
         
     }

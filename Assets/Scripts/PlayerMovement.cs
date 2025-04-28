@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float fallSpeedMultiplier = 2f;
 
 
+    private bool isFacingRight = true;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -90,12 +92,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Flip(){
-        if (horizontalMovement > 0.01f){
-            transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+        if (horizontalMovement > 0.01f && !isFacingRight){
+            transform.Rotate(0f, 180f, 0f);
+            isFacingRight = true;
+            
         }
 
-        else if (horizontalMovement < -0.01f){
-            transform.localScale = new Vector3(-0.7f, 0.7f, 0.7f);
+        else if (horizontalMovement < -0.01f && isFacingRight){
+            transform.Rotate(0f, -180f, 0f);
+            isFacingRight = false;
         }
         
     }
