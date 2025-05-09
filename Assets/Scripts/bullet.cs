@@ -20,6 +20,12 @@ public class bullet : MonoBehaviour
     {
 
         Debug.Log(hitInfo.name);
+        
+        Health enemyHealth = hitInfo.GetComponent<Health>();
+        if (enemyHealth != null)
+        {
+            enemyHealth.TakeDamage(1);
+        }
         Destroy(gameObject);
 
         
